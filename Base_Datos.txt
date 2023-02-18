@@ -1,0 +1,11 @@
+
+create table tbconsultorios(idConsultorio int(3) not null auto_increment, ConNombre varchar(20) not null, primary key(idConsultorio))auto_increment=1;
+
+create table tbmedicos(MedIdentificacion char(10) not null, MedNombres varchar(50) not null, MedApellidos varchar(50) not null, primary key(MedIdentificacion));
+
+
+create table tbpacientes(PacIdentificacion char(10) not null, PacNombres varchar(50) not null, PacApellidos varchar(50) not null, PacFechaNacimiento date not null, PacSexo enum('M','F'), primary key(PacIdentificacion));
+
+create table tbTratamientos(TraNumero int not null auto_increment, TraFechaAsignado date not null, TraDescripcion text not null, TraFechaInicio date not null, TraFechaFin date not null, TraObservaciones text not null, TraPaciente char(10) not null, primary key(TraNumero), foreign key(TraPaciente) references tbpacientes(PacIdentificacion)) auto_increment=1;	
+
+create table tbCitas(CitNumero int not null auto_increment, CitFecha date not null, CitHora char(5) not null, CitPaciente char(10) not null, CitMedico char(10) not null, CitConsultorio int not null, CitEstado enum('Activo','Inactivo'), CitObservaciones text not null, primary key(CitNumero), foreign key(CitPaciente) references tbpacientes(PacIdentificacion), foreign key(CitMedico) references tbmedicos(MedIdentificacion), foreign key(CitConsultorio) references tbconsultorios(idConsultorio)) auto_increment=1;
